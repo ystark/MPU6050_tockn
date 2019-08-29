@@ -2,7 +2,6 @@
 #define MPU6050_TOCKN_H
 
 #include "Arduino.h"
-#include "Wire.h"
 
 #define MPU6050_ADDR         0x68
 #define MPU6050_SMPLRT_DIV   0x19
@@ -14,11 +13,13 @@
 #define MPU6050_TEMP_H       0x41
 #define MPU6050_TEMP_L       0x42
 
+class SoftWire;
+
 class MPU6050{
   public:
 
-  MPU6050(TwoWire &w);
-  MPU6050(TwoWire &w, float aC, float gC);
+  MPU6050(SoftWire &w);
+  MPU6050(SoftWire &w, float aC, float gC);
 
   void begin();
 
@@ -68,7 +69,7 @@ class MPU6050{
 
   private:
 
-  TwoWire *wire;
+  SoftWire *wire;
 
   int16_t rawAccX, rawAccY, rawAccZ, rawTemp,
   rawGyroX, rawGyroY, rawGyroZ;

@@ -1,13 +1,14 @@
 #include "MPU6050_tockn.h"
 #include "Arduino.h"
+#include "SoftWire.h"
 
-MPU6050::MPU6050(TwoWire &w){
+MPU6050::MPU6050(SoftWire &w){
   wire = &w;
   accCoef = 0.02f;
   gyroCoef = 0.98f;
 }
 
-MPU6050::MPU6050(TwoWire &w, float aC, float gC){
+MPU6050::MPU6050(SoftWire &w, float aC, float gC){
   wire = &w;
   accCoef = aC;
   gyroCoef = gC;

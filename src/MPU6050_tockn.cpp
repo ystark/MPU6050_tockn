@@ -22,6 +22,7 @@ void MPU6050::begin(){
   this->update();
   angleGyroX = 0;
   angleGyroY = 0;
+  angleGyroZ = 0;
   angleX = this->getAccAngleX();
   angleY = this->getAccAngleY();
   preInterval = millis();

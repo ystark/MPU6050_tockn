@@ -53,7 +53,7 @@ class MPU6050{
   float getGyroYoffset(){ return gyroYoffset; };
   float getGyroZoffset(){ return gyroZoffset; };
 
-  void update();
+  void update(bool console = false);
 
   float getAccAngleX(){ return angleAccX; };
   float getAccAngleY(){ return angleAccY; };

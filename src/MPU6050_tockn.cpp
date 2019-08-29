@@ -67,7 +67,9 @@ void MPU6050::calcGyroOffsets(bool console, uint16_t delayBefore, uint16_t delay
     }
     wire->beginTransmission(MPU6050_ADDR);
     wire->write(0x43);
-    wire->endTransmission(false);
+    byte rxStatus = wire->endTransmission(true);
+    if (rxStatus != 0 && console) Serial.println("MPU6050::update EC: " + String(rxStatus));    
+
     wire->requestFrom((int)MPU6050_ADDR, 6);
 
     rx = wire->read() << 8 | wire->read();
@@ -94,10 +96,12 @@ void MPU6050::calcGyroOffsets(bool console, uint16_t delayBefore, uint16_t delay
 	}
 }
 
-void MPU6050::update(){
+void MPU6050::update(bool console){
 	wire->beginTransmission(MPU6050_ADDR);
 	wire->write(0x3B);
-	wire->endTransmission(false);
+  byte rxStatus = wire->endTransmission(true);
+  if (rxStatus != 0 && console) Serial.println("MPU6050::update EC: " + String(rxStatus));
+
 	wire->requestFrom((int)MPU6050_ADDR, 14);
 
   rawAccX = wire->read() << 8 | wire->read();

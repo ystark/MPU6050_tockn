@@ -17,7 +17,7 @@ MPU6050::MPU6050(SoftWire &w, float aC, float gC){
 void MPU6050::begin(){
   writeMPU6050(MPU6050_SMPLRT_DIV, 0x00);
   writeMPU6050(MPU6050_CONFIG, 0x00);
-  writeMPU6050(MPU6050_GYRO_CONFIG, 0x08);
+  writeMPU6050(MPU6050_GYRO_CONFIG, 0x00);
   writeMPU6050(MPU6050_ACCEL_CONFIG, 0x00);
   writeMPU6050(MPU6050_PWR_MGMT_1, 0x01);
   this->update();
@@ -77,9 +77,9 @@ void MPU6050::calcGyroOffsets(bool console, uint16_t delayBefore, uint16_t delay
     ry = wire->read() << 8 | wire->read();
     rz = wire->read() << 8 | wire->read();
 
-    x += ((float)rx) / 65.5;
-    y += ((float)ry) / 65.5;
-    z += ((float)rz) / 65.5;
+    x += ((float)rx) / 131.0;
+    y += ((float)ry) / 131.0;
+    z += ((float)rz) / 131.0;
   }
   gyroXoffset = x / 3000;
   gyroYoffset = y / 3000;
@@ -122,9 +122,9 @@ void MPU6050::update(bool console){
   angleAccX = atan2(accY, sqrt(accZ * accZ + accX * accX)) * 360 / 2.0 / PI;
   angleAccY = atan2(accX, sqrt(accZ * accZ + accY * accY)) * 360 / -2.0 / PI;
 
-  gyroX = ((float)rawGyroX) / 65.5;
-  gyroY = ((float)rawGyroY) / 65.5;
-  gyroZ = ((float)rawGyroZ) / 65.5;
+  gyroX = ((float)rawGyroX) / 131.0;
+  gyroY = ((float)rawGyroY) / 131.0;
+  gyroZ = ((float)rawGyroZ) / 131.0;
 
   gyroX -= gyroXoffset;
   gyroY -= gyroYoffset;
